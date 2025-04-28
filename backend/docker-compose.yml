@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: confluentinc/cp-kafka:7.4.0
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  mongodb-order:
+    image: mongo:6.0
+    container_name: mongodb-order
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: orders_db
+
+  mongodb-inventory:
+    image: mongo:6.0
+    container_name: mongodb-inventory
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_DATABASE: inventory_db
+
+  mongodb-management:
+    image: mongo:6.0
+    container_name: mongodb-management
+    ports:
+      - "27019:27017"
+    environment:
+      MONGO_INITDB_DATABASE: management_db
+
+  mongodb-production:
+    image: mongo:6.0
+    container_name: mongodb-production
+    ports:
+      - "27020:27017"
+    environment:
+      MONGO_INITDB_DATABASE: production_db
+
+# Optional Mongo Express (UI for MongoDB)
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb-order
+
+networks:
+  default:
+    name: microservices-net

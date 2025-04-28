@@ -1,0 +1,9 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27018/inventory_db
+  kafka:
+    bootstrap-servers: localhost:9092
+
+server:
+  port: 8081

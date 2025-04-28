@@ -1,0 +1,11 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/orders_db
+  kafka:
+    bootstrap-servers: localhost:9092
+
+server:
+  port: 8080
+
+# OrderService pom.xml would include spring-boot-starter-web, spring-boot-starter-data-mongodb, spring-kafka, lombok, etc.
