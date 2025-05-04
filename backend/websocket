@@ -1,0 +1,9 @@
+🧠 WebSocket vs HTTP
+Feature	HTTP	WebSocket
+Connection type	One-time request/response	Persistent, bidirectional
+Initiated by	Client	Client initiates, then both talk
+Use case	Get/post data occasionally	Real-time updates (chat, status)
+Server can push data?	❌ No	✅ Yes — broadcast is possible
+
+🔄 HTTP is still used — only to establish the WebSocket
+The initial WebSocket connection starts as an HTTP handshake, then upgrades to a full-duplex protocol.
